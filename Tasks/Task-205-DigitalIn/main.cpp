@@ -42,8 +42,26 @@ int main()
             ledYel = 0;
         }
 
+// Modify the code to use SW4 and SW5
+// When SW4 is pressed, turn on Green LED
         if (SW4.read() == 1) {
-            ledGrn
+            ledGrn = 1;
+        }
+        else {
+        ledGrn = 0;
+        }
+
+// When SW5 is pressed, turn on all LEDs
+        if (SW5.read() == 1)
+        {
+            ledRed = 1;
+            ledYel = 1;
+            ledGrn = 1;
+        }
+        else {
+        ledRed = 0;
+        ledYel = 0;
+        ledGrn = 0;
         }
     }
 }
