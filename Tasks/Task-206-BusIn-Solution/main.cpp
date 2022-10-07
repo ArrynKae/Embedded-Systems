@@ -16,53 +16,28 @@
 #define BTN4_PIN PG_3 // No pull down -- this button will have to be handled differently
 
 // Inputs
-DigitalIn SW2(BTN1_PIN);
-DigitalIn SW3(BTN2_PIN);
-DigitalInOut SW4(BTN3_PIN,PIN_INPUT,PullDown,0);        // use DigitalInOut to configure the switches to use the internal pull-down resistors and there are no physical resistors on the module support board
-DigitalInOut SW5(BTN4_PIN,PIN_INPUT,PullDown,0);        // use DigitalInOut to configure the switches to use the internal pull-down resistors and there are no physical resistors on the module support board
-
+// Inputs
+// DigitalIn SW2(BTN1_PIN);
+// DigitalIn SW3(BTN2_PIN);
+// DigitalInOut SW4(BTN3_PIN,PIN_INPUT,PullDown,0);
+// DigitalInOut SW5(BTN4_PIN,PIN_INPUT,PullDown,0);
+BusInOut switches(BTN3_PIN, BTN4_PIN);
 // Outputs
-// Configure the push-pull LEDs as outputs.
-DigitalOut ledRed(TRAF_RED1_PIN);
-DigitalOut ledYel(TRAF_YEL1_PIN);
-DigitalOut ledGrn(TRAF_GRN1_PIN);
-
+BusOut leds(TRAF_RED1_PIN, TRAF_YEL1_PIN, TRAF_GRN1_PIN);
 int main()
 {
+    switches.input();
+    switches.mode(PinMode::PullDown);
+    
     while (true) {
-        if (SW2 == 1) {
-            ledRed = 1;
+        // Poll the switches
+        uint8_t switch_state = switches;
+        // Update
+        if (switch_state == 3) {
+            leds = 7;
         } else {
-            ledRed = 0;
-        }
+            leds = 0;
 
-        if (SW3.read() == 1) {
-            ledYel = 1;
-        } else {
-            ledYel = 0;
-        }
-
-// Modify the code to use SW4 and SW5
-// When SW4 is pressed, turn on Green LED
-        if (SW4.read() == 1) {
-            ledGrn = 1;
-        }
-        else {
-        ledGrn = 0;
-        }
-
-// When SW5 is pressed, turn on all LEDs
-        if (SW5.read() == 1)
-        {
-            ledRed = 1;
-            ledYel = 1;
-            ledGrn = 1;
-        }
-        else {
-        ledRed = 0;
-        ledYel = 0;
-        ledGrn = 0;
         }
     }
 }
-
