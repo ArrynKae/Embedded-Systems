@@ -31,9 +31,10 @@ int main()
         while (SW_BLUE == 1)
         {
             // debounce delay :)
-            tmr1.reset();
-            while (tmr1.elapsed_time() < 150ms); //How about this for C++ magic :)
-            wait_us(150000);
+            //tmr1.reset();
+            //while (tmr1.elapsed_time() < 150ms); //How about this for C++ magic :)
+            wait_us(250000);
+            //wait_ns(150000000);
 
             if(ledRed == 0){
             //Turn on LED
