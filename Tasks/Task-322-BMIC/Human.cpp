@@ -12,6 +12,7 @@ static void calculateHumanBMI(Human* h);
 
 void displayHuman(const Human* h) {
     printf("Age: %u, Weight: %f, Height: %f, BMI: %f", h->age, h->weight, h->height, h->bmi);
+    // h->bmi = 40.0; // this throws an error because the h parameter is a const. an error is thrown before the code is compiled.
     if (h->bmi>=25.0) {
         printf("*");
     }

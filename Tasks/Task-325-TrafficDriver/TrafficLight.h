@@ -18,11 +18,14 @@ class TrafficLight
     DigitalOut yellowLED;
     DigitalOut greenLED;
     Ticker t;
+    Ticker t2;
     LIGHT_STATE State;
 
     void yellowFlashISR();
+    void redLEDStopISR();
     void flashYellow(bool flash);
     void updateOutput();
+
 
     public:
     //Constructor
@@ -33,6 +36,9 @@ class TrafficLight
 
     //Advance the traffic lights to the next state
     LIGHT_STATE nextState();
+    void stop();
+    void setFlashSpeed(double);
+    double getFlashSpeed();
 
 };
 

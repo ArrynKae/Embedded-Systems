@@ -1,6 +1,6 @@
 #include "TrafficLight.h"
 
-//Contructor
+//Constructor
 TrafficLight::TrafficLight(PinName redPin, PinName yellowPin, PinName greenPin) 
                                                         : redLED(redPin), yellowLED(yellowPin), greenLED(greenPin)
 {
@@ -18,11 +18,19 @@ TrafficLight::~TrafficLight()
     redLED = 1;
     yellowLED = 0;
     greenLED = 0;
+    // why doesn't the destructor include the flashYellow(false) function
 } 
 
-// Interrupt Service Routine (ISR)
+// Interrupt Service Routines (ISR)
 void TrafficLight::yellowFlashISR() {
     yellowLED = !yellowLED;
+}
+
+void TrafficLight::redLEDStopISR(){
+    if (redLED = 1)
+    {
+        redLED = 0;
+    }
 }
 
 // Private member function to switch flasher on or off
@@ -68,6 +76,7 @@ void TrafficLight::updateOutput()
 // Moore machine - next state logic
 TrafficLight::LIGHT_STATE TrafficLight::nextState()
 {
+    stop();
     // Update State
     switch (State)
     {
@@ -91,3 +100,21 @@ TrafficLight::LIGHT_STATE TrafficLight::nextState()
     //Return the current state (for information)
     return State; 
 } 
+
+// resets the lights to red at any point
+void TrafficLight :: stop()
+{
+    t2.detach(); //Turn off ticker
+    if (redLED = 1) {
+        //Turn on ticker ..... Hmmm, interrupts!
+        t2.attach(callback(this, &TrafficLight::redLEDStopISR), 200ms);
+    }
+}
+
+/*
+void setFlashSpeed(double speed)
+{}
+
+double getFlashSpeed()
+{}
+*/
