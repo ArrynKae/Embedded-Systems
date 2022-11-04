@@ -39,6 +39,11 @@ public:
         _real = stod(strVal);
     }
 
+    void setValue(DoubleNumber u)
+    {
+        _real = (double)u;  // include conversion operator here** - this should fix the error!
+    }
+
     double getValue() {
         return _real;
     }
