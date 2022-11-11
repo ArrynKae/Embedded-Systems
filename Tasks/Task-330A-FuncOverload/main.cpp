@@ -39,9 +39,12 @@ public:
         _real = stod(strVal);
     }
 
-    void setValue(DoubleNumber u)
+    void setValue(DoubleNumber& u)
     {
-        _real = (double)u;  // include conversion operator here** - this should fix the error!
+        _real = *u;  // include conversion operator here** - this should fix the error! - using pointers doesn't quite work either 
+
+        // might put a break in this and read through the lab
+        // :)
     }
 
     double getValue() {
